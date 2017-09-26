@@ -9,5 +9,5 @@ FILE=$1
 i=0
 while read -r LINE; do
     let i++
-    echo "$i: \"$LINE\""
-done < "$FILE"
+    echo "$i $LINE"
+done < $FILE
