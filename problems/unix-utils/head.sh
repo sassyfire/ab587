@@ -1,19 +1,23 @@
 #!/bin/bash
 
 if [[ $# -eq 0 ]]; then
-    printf "Usage: %s FILE\n" "$(basename "$0")" 
+    printf "Usage: %s [NUM] FILE\n" "$(basename "$0")" 
     exit 1
+
 fi
 
 FILE=$1
-i=$2
-while read -r LINE; do
+NUM=${2:-3}
+i=-1
+
+if [[ -f $FILE ]]; then
+    while read -r LINE; do
     let i++
+    if [[ $i -eq $NUM ]]; then 
+    break
+fi
     echo "$LINE"
 done < $FILE
-
-
-
-
-
-
+else 
+    echo "$FILE is not a file"
+fi
