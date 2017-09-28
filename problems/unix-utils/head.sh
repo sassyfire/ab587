@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -eq 0 ]]; then
-    printf "Usage: %s [NUM] FILE\n" "$(basename "$0")" 
+    printf "Usage: %s FILE [NUM]\n" "$(basename "$0")" 
     exit 1
 fi 
 
@@ -10,7 +10,7 @@ NUM=${2:-3}
 i=-1
 
 if [[ ! -f $FILE ]]; then
-        echo "$FILE is not a file"
+        echo "\"$FILE\" is not a file"
         exit 1
 fi
 
