@@ -3,33 +3,41 @@
 
 import sys
 import os
-from collections import Counter
+from collections import defaultdict
 
 args = sys.argv[1:]
-
-text = ' ' 
-if len(args) == 0:
+ 
+if len(args) != 2:
     print('Usage: {} LEN STR'.format(os.path.basename(sys.argv[0])))
     sys.exit(1)
-else:
-    text = args
 
-count = Counter(text.lower())
+if not args[0].isdigit():
+    print('Kmer size "{}" is not a number'.format(args[0]))
+    sys.exit(1)
 
-num = args[0] 
-dna = args[1]
+k = int(args[0])
+sequence = args[1]
 
-for base in "acgtACGT":
-    if num == int(args[0]):
-        base = sorted(count.keys())
-print('{} {}'.format(num, base))
+if k < 1:
+    print('Kmer size "{}" must be > 0'.format(k))
+    sys.exit(1)
 
-if num == int(args[0]):
-    print('Kmer size "{}" must be > 0"'.format(num))
-else:
-    print('Kmer size "{}" is not a number"'.format(num))
+#print('kmer "{}" seq "{}"'.format(k, sequence))
+
+nk = len(sequence) - k + 1
+
+if nk < 1:
+   print('There are no {}-mers in "{}"'.format(k, sequence))
+   sys.exit(1)
+
+kmers = defaultdict(int)
+for i in range(nk):
+   kmer = sequence[i:i+k]
+   kmers[kmer] += 1
+
+print(sequence)
+
+for kmer, num in sorted(kmers.items()):
+    print('{} {}'.format(kmer, num))
 
 
-
-    counts.append(str(count[base]))
-print ('{} {} '.format(num, letter))
