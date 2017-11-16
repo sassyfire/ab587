@@ -35,13 +35,13 @@ def main():
         rec = dict(zip(flds, vals))
         rec_pident = float(rec['pident'])
         rec_evalue = float(rec['evalue'])
-        rec_qseqid = rec['qseqid']
-        rec_sseqid = rec['sseqid']
-        if rec_pident <= pct_id:
+        if rec_pident < pct_id:
             continue
         if evalue is not None and rec_evalue >= evalue:
             continue
-        print('\t'.join([rec_qseqid, rec_sseqid, str(rec_pident), str(rec_evalue)]))
+        print('\t'.join([rec['qseqid'], rec['sseqid'], rec['pident'], rec['evalue']
+]))
+
  
 #-----------------
 if __name__ == '__main__':
