@@ -11,7 +11,7 @@ def get_args():
 #    parser.add_argument('-h', '--help', help='show this help message and exit',
 #                        metavar='str', type=str, default='')
     parser.add_argument('-p', '--pct_id', help='Percent identity',
-                        metavar='float', type =float, default='0.00')
+                        metavar='float', type =float, default=0.00)
     parser.add_argument('-e', '--evalue', help='',
                         metavar='float', type=float, default=None)
     parser.add_argument('file', metavar='file', help ='BLAST tab output')
@@ -37,17 +37,11 @@ def main():
         rec_evalue = float(rec['evalue'])
         rec_qseqid = rec['qseqid']
         rec_sseqid = rec['sseqid']
-        out_flds = 'rec_qseqid rec_sseqid rec_pident rec_evalue'.split()
-        if pct_id != 0.00 or evalue is not None:
-            if rec_pident >= pct_id and evalue is None:
-                print('{}\t{}\t{}\t{}'.format(rec_qseqid, rec_sseqid, rec_pident, rec_evalue))
-            else:
-                if pct_id == 0.00 and evalue >= float(rec_value):
-                    print('{}\t{}\t{}\t{}'.format(rec_qseqid, rec_sseqid, rec_pident, rec_evalue))
-                elif rec_pident >= pct_id and evalue >= float(rec_evalue):
-                    print('{}\t{}\t{}\t{}'.format(rec_qseqid, rec_sseqid, rec_pident, rec_evalue))
-                else:
-                    print('{}\t{}\t{}\t{}'.format(rec_qseqid, rec_sseqid, rec_pident, rec_evalue))
+        if rec_pident <= pct_id:
+            continue
+        if evalue is not None and rec_evalue >= evalue:
+            continue
+        print('\t'.join([rec_qseqid, rec_sseqid, str(rec_pident), str(rec_evalue)]))
  
 #-----------------
 if __name__ == '__main__':
