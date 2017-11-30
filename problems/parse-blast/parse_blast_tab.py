@@ -3,13 +3,10 @@
 import argparse
 import os
 import sys
-import csv
 
 #------------------
 def get_args():
     parser = argparse.ArgumentParser(description='BLAST tab output')
-#    parser.add_argument('-h', '--help', help='show this help message and exit',
-#                        metavar='str', type=str, default='')
     parser.add_argument('-p', '--pct_id', help='Percent identity',
                         metavar='float', type =float, default=0.00)
     parser.add_argument('-e', '--evalue', help='',
@@ -24,7 +21,6 @@ def main():
     evalue = args.evalue
     blast_file = args.file
     flds = 'qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore'.split()
-    out_flds = 'qseqid sseqid pident evalue'.split()
     
     if not os.path.isfile(blast_file):
         print('"{}" is not a file'.format(blast_file))
